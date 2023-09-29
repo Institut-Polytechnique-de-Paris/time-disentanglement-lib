@@ -42,13 +42,11 @@ Predefined experiments with associated hyperparameters can be executed using the
 Output
 Running experiments will create a directory results/<saving-name>/, which includes the following:
 
-model.pt: The model at the end of training.
-model-i.pt: Model checkpoint after i iterations (default: every 10).
-specs.json: Parameters used to run the program (default and modified with CLI).
-training.gif: A GIF showing latent traversals of the latent dimensions Z at every epoch of training.
-train_losses.log: Log of all (sub-)losses computed during training.
-test_losses.log: Log of all (sub-)losses computed at the end of training with the model in evaluate mode (no sampling).
-metrics.log: Includes the Mutual Information Gap metric and the Axis Alignment Metric. This is included only if --is-metric is enabled (but it may run slowly).
+### use Checkpoint 
+
+We offer checkpoints for each model, and we are actively working on providing access to other experiments using W&B as well.
+
+
 
 ### Help
 ```
