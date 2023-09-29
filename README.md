@@ -12,7 +12,6 @@ At present, this repository remains anonymous as a paper based on its content is
 | β-VAE<sub>B</sub>  | [Understanding disentangling in β-VAE](https://arxiv.org/abs/1804.03599)                       |
 | FactorVAE          | [Disentangling by Factorising](https://arxiv.org/abs/1802.05983)                                |
 | β-TCVAE            | [Isolating Sources of Disentanglement in Variational Autoencoders](https://arxiv.org/abs/1802.04942) |
-
 |  HFS  | [https://openreview.net/forum?id=OKcJhpQiGiX](https://openreview.net/forum?id=OKcJhpQiGiX)                       |
 |     RNN-VAE (VRNN)      | [A Recurrent Latent Variable Model for Sequential Data](https://proceedings.neurips.cc/paper_files/paper/2015/file/b618c3210e934362ac261db280128c22-Paper.pdf)                                |
 | D3VAE            | [Generative Time Series Forecasting with Diffusion, Denoise, and Disentanglement](https://arxiv.org/abs/2301.03028) |
