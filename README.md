@@ -1,4 +1,4 @@
-#  Time DisCO: Disentangling Time Series Representations via Contrastive based $L$-Variational Inference
+#  Time DisCo: Disentangling Time Series Representations via Contrastive based $L$-Variational Inference
 ![An overview](docs/img/overview.png)
 **Note ⚠️**
 - Currently, we updated some classes of our  framework "DisCO" Time Series Disentangling for correlated data, please use our last release (v0.2.1-alpha)
