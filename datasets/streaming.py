@@ -298,7 +298,7 @@ def load_dataset(name_dataset="uk-dale", streaming=False,
     :param out: output filename or directory
     :return:    filename where URL is downloaded to
     """
-    urlsources={"uk-dale": "https://github.com/oublalkhalid/XGen/raw/main/DatasetGenerated_devices-washing_machine-dishwasher-fridge-oven-stove-clothes_dryer_features_PQS_targets_P_dt-60S_nbHouses-443.hdf5"
+    urlsources={"uk-dale": "https://github.com/oublalkhalid/disco/raw/main/DatasetGenerated_devices-washing_machine-dishwasher-fridge-oven-stove-clothes_dryer_features_PQS_targets_P_dt-60S_nbHouses-443.hdf5"
                }
     url = urlsources[name_dataset]
     
