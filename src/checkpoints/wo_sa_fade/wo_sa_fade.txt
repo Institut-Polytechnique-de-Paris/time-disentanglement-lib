@@ -1,0 +1,9 @@
+Last G loss: 0.27720335125923157
+Last D loss: 0.499795526266098
+Last FID: 7.289833661161538e-07
+epochs: 15
+ML: True
+SA: False
+Fade-in: False
+Blocks to add: 2
+Timestamp: 5
