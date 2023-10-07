@@ -18,7 +18,7 @@ At present, this repository remains anonymous as a paper based on its content is
 | DisCo Time Series (ours)  | [Disentangling Time Series Representations via Contrastive based L-Variational Inference](#)                        |
 
 
-![An overview](docs/img/some_results.png)
+![An overview](docs/img/discov_pca.png)
 
 
 ## Installation
