@@ -21,7 +21,7 @@ class TimeGenerationPipeline(Pipeline):
     """
     This Pipeline provides an end to end way to generate samples from a trained VAE model. It only
     needs a :class:`disco.models` to sample from and a smapler configuration.
-
+    Usa sampling FRV for attributes
     Parameters:
 
         model (Optional[BaseAE]): An instance of :class:`~disco.models.BaseAE` you want to train.
