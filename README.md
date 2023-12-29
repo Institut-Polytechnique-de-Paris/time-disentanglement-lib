@@ -1,7 +1,7 @@
 #  DIoSC: Disentangling Time Series Representations via Contrastive based $L$-Variational Inference
 ![An overview](docs/img/model.png)
 **Note ⚠️**
-- Currently, we updated some classes of our  framework "DisCO" Time Series Disentangling for correlated data.
+- Currently, we updated some classes of our  framework "DIoSC" Time Series Disentangling for correlated data.
 
 At present, this repository remains anonymous as a paper based on its content is under review. It provides procedures to enhance the disentanglement of time series data, offering both configurations and the necessary code to reproduce our results.
 
@@ -15,7 +15,7 @@ At present, this repository remains anonymous as a paper based on its content is
 |  HFS  | [https://openreview.net/forum?id=OKcJhpQiGiX](https://openreview.net/forum?id=OKcJhpQiGiX)                       |
 |     RNN-VAE (VRNN)      | [A Recurrent Latent Variable Model for Sequential Data](https://proceedings.neurips.cc/paper_files/paper/2015/file/b618c3210e934362ac261db280128c22-Paper.pdf)                                |
 | D3VAE            | [Generative Time Series Forecasting with Diffusion, Denoise, and Disentanglement](https://arxiv.org/abs/2301.03028) |
-| DisCo Time Series (ours)  | [Disentangling Time Series Representations via Contrastive based L-Variational Inference](#)                        |
+| DIoSC Time Series (ours)  | [Disentangling Time Series Representations via Contrastive based L-Variational Inference](#)                        |
 
 
 
@@ -32,7 +32,7 @@ pip install -r requirements.txt
 Use `python main.py <model-name> <param>` to train and/or evaluate a model. For example:
 
 ```
-python main.py disco_ukdal_mini -d ukdal -l disco --lr 0.001 -b 256 -e 5
+python main.py DIoSC_ukdal_mini -d ukdal -l DIoSC --lr 0.001 -b 256 -e 5
 ```
 
 Predefined experiments with associated hyperparameters can be executed using the -x <experiment> flag. The hyperparameters can be found in the hyperparam.ini file, and pretrained models for each experiment are located in the results/<experiment> directory (created using ./bin/train_all.sh).
