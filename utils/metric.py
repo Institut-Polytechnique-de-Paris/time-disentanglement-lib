@@ -10,11 +10,9 @@ def mse(fake_data, real_data):
 def abs_error(fake_data, real_data):
     return np.sum(np.abs(real_data-fake_data))
 
-
 def nrmse(fake_data, real_data):
     return torch.sqrt(torch.mean((real_data-fake_data)**2)) / (torch.max(real_data)-torch.min((real_data)))
     #return np.sqrt(np.mean((real_data-fake_data)**2)) / (np.max(real_data)-np.min((real_data)))
-
 
 
 def evaluation(eval, test_loader, G, embedder=None):
@@ -58,7 +56,6 @@ def evaluation(eval, test_loader, G, embedder=None):
                 else:
                     print("error")
                     break
-
     res_mean=np.mean(results)
     res_stdev=np.std(results)
 
@@ -76,8 +73,8 @@ def calculate_fid(generated_embeddings,real_embeddings):
     # check and correct imaginary numbers from sqrt
     if np.iscomplexobj(covmean):
         covmean = covmean.real
-    # calculate score
-    fid = ssdiff + np.trace(sigma1 + sigma2 - 2.0 * covmean)
+    # calculate fid 
+    fid = np.trace(sigma1 + sigma2 - 2.0 * covmean) + ssdiff 
     return fid
     
 
