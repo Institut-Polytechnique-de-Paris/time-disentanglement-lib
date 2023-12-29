@@ -16,13 +16,11 @@ from .maf_sampler_config import MAFSamplerConfig
 
 class MAFSampler(BaseSampler):
     """Fits a Masked Autoregressive Flow in the Autoencoder's latent space.
-
     Args:
         model (BaseAE): The AE model to sample from
         sampler_config (MAFSamplerConfig): A MAFSamplerConfig instance containing
             the main parameters of the sampler. If None, a pre-defined configuration is used.
             Default: None
-
     .. note::
 
         The method :class:`~disco.samplers.MAFSampler.fit` must be called to fit the

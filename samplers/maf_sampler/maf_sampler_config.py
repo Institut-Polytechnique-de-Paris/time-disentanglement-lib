@@ -6,7 +6,6 @@ from ..base import BaseSamplerConfig
 @dataclass
 class MAFSamplerConfig(BaseSamplerConfig):
     """This is the MAF sampler model configuration instance.
-
     Parameters:
         n_made_blocks (int): The number of MADE model to consider in the MAF. Default: 2.
         n_hidden_in_made (int): The number of hidden layers in the MADE models. Default: 3.
