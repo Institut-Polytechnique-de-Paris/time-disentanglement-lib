@@ -1,4 +1,5 @@
 #  DIoSC: Disentangling Time Series Representations via Contrastive based $L$-Variational Inference
+📣 Published as ICLR 2024 paper conference 
 ![An overview](docs/img/model.png)
 **Note ⚠️**
 - Currently, we updated some classes of our  framework "DIoSC" Time Series Disentangling for correlated data.
