@@ -1,5 +1,11 @@
 
-<h1 align="left"> Time Disentanglement-lib <img src = "docs/img/hugging_time_disentanglement_lib.png" width="80" height="80"></h1>
+
+<h1 align="left">
+    <a href="https://oublalkhalid.github.io/time-disentanglement-lib/">
+        <img src="docs/img/hugging_time_disentanglement_lib.png" width="80" height="80" alt="Time Disentanglement-lib">
+    </a>
+    time-disentanglement-lib
+</h1>
 
 ##  DIoSC: Disentangling Time Series Representations via Contrastive based $L$-Variational Inference
 📣 Published as a conference paper at ICLR 2024 
