@@ -4,7 +4,7 @@
     <a href="https://oublalkhalid.github.io/time-disentanglement-lib/">
         <img src="docs/img/hugging_time_disentanglement_lib.png" width="80" height="80" alt="Time Disentanglement-lib">
     </a>
-    time-disentanglement-lib
+    Time-Disentanglement-Lib
 </h1>
 
 ##  Disentangling Time Series Representations via Contrastive Independence-of-Support on $l$-Variational Inference
