@@ -7,7 +7,7 @@
     time-disentanglement-lib
 </h1>
 
-##  DIoSC: Disentangling Time Series Representations via Contrastive based $L$-Variational Inference
+##  Disentangling Time Series Representations via Contrastive Independence-of-Support on $l$-Variational Inference
 📣 Published as a conference paper at ICLR 2024 
 ![An overview](docs/img/model.png)
 
