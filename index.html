@@ -1,436 +1,253 @@
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Primary Meta Tags -->
-    <title>Disentangling Time Series Representations via Contrastive Independence-of-Support on $l$-Variational Inference</title>
-    <meta name="title" content="Provably Learning Object-Centric Representations">
-    <meta name="description"
-        content="Learning structured representations of the visual world in terms of objects promises to significantly improve the generalization abilities of current machine learning models. While recent efforts to this end have shown promising empirical progress, a theoretical account of when unsupervised object-centric representation learning is possible is still lacking. Consequently, understanding the reasons for the success of existing object-centric methods as well as designing new theoretically grounded methods remains challenging. In the present work, we analyze when object-centric representations can provably be learned without supervision. To this end, we first introduce two assumptions on the generative process for scenes comprised of several objects, which we call compositionality and irreducibility. Under this generative process, we prove that the ground-truth object representations can be identified by an invertible and compositional inference model, even in the presence of dependences between objects. We empirically validate our results through experiments on synthetic data. Finally, we provide evidence that our theory holds predictive power for existing object-centric models by showing a close correspondence between models' compositionality and invertibility and their identifiability empirically.">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://github.com/oublalkhalid/time-disentanglement-lib/">
-    <meta property="og:title" content="Disentangling Time Series Representations via Contrastive Independence-of-Support on $l$-Variational Inference">
-    <meta property="og:description"
-        content="Learning structured representations of the visual world in terms of objects promises to significantly improve the generalization abilities of current machine learning models. While recent efforts to this end have shown promising empirical progress, a theoretical account of when unsupervised object-centric representation learning is possible is still lacking. Consequently, understanding the reasons for the success of existing object-centric methods as well as designing new theoretically grounded methods remains challenging. In the present work, we analyze when object-centric representations can provably be learned without supervision. To this end, we first introduce two assumptions on the generative process for scenes comprised of several objects, which we call compositionality and irreducibility. Under this generative process, we prove that the ground-truth object representations can be identified by an invertible and compositional inference model, even in the presence of dependences between objects. We empirically validate our results through experiments on synthetic data. Finally, we provide evidence that our theory holds predictive power for existing object-centric models by showing a close correspondence between models' compositionality and invertibility and their identifiability empirically.">
-    <meta property="og:image" content="https://github.com/oublalkhalid/time-disentanglement-lib/">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://github.com/oublalkhalid/time-disentanglement-lib/">
-    <meta property="twitter:title" content="https://github.com/oublalkhalid/time-disentanglement-lib">
-    <meta property="twitter:description"
-        content="Disentangling Time Series Representations via Contrastive Independence-of-Support on $l$-Variational Inference">
-    <meta property="twitter:image" content="https://github.com/oublalkhalid/time-disentanglement-lib/">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-
-    <style>
-        .main {
-            font-family: 'IBM Plex Sans Condensed', sans-serif;
-        }
-
-        .code {
-            font-family: 'IBM Plex Mono', monospace;
-        }
-
-        h3 {
-            margin-top: 1.0rem; 
-        }
-
-        .row-dense {
-            padding-bottom: 0;
-        }
-
-        .a {
-            color: gainsboro;
-            font-family: 'IBM Plex Sans Condensed', sans-serif;
-        }
-
-        td {
-            padding: 0 15px;
-        }
-
-        p {
-            text-align: justify;
-
-        }
-
-        .collapse-container {
-            text-align: center;
-            position: relative;
-
-        }
-
-        .collapse-container #moreless.collapsed:after {
-            content: '+ Show More';
-        }
-
-        .collapse-container #moreless:not(.collapsed):after {
-            content: '- Show Less';
-        }
-
-        .collapse-container .collapse.collapse:not(.show) {
-            display: block;
-            /* height = lineheight * no of lines to display */
-            height: 7.7em;
-            overflow: hidden;
-        }
-
-        .collapse-container .collapse.collapse:not(.show):before {
-            content: '';
-            width: 100%;
-            height: 7.7em;
-            position: absolute;
-            left: 0;
-            top: 0;
-            background: linear-gradient(rgba(255, 255, 255, 0), 60px, white);
-        }
-
-        .collapse-container .collapse.collapsing {
-            height: 7.7em;
-        }
-    </style>
-
-    <title>Provably Learning Object-Centric Representations</title>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
+  <meta property="og:url" content="URL OF THE WEBSITE"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Disentangling Time Series Representations via Contrastive Independence of Supports based l-Variational Inference</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
 </head>
-
 <body>
-    <div class="container main">
-        <div class="row">
-            <div class="col-sm-2">
-            </div>
-            <div class="col-sm-8" id="main-content">
-                <div class="row text-center my-5" id="#">
-                    <h1>Provably Learning Object-Centric Representations</h1>
-                </div>
-
-                <!-- Begin author list-->
-                <div class="row text-center mb-4">
-                    <div class="col-sm-4 mb-4">
-                        Khalid OUBLAL*
-                        <a href="mailto:#"><i class="far fa-envelope"></i></a><br>
-                        Institut Polytechnique de Paris & <nobr>LTCI</nobr>
-                    </div>
-                    <div class="col-sm-4 mb-4">
-                        Saïd Ladjal
-                        <a href="mailto:#"><i class="far fa-envelope"></i></a>
-                        <a href="#" target="_blank"><i class="fas fa-link"></i></a></br>
-                        Institut Polytechnique de Paris, Telecom Paris & <nobr>IDS/LTCI</nobr>
-                    </div>
-                    <div class="col-sm-4 mb-4">
-                        David Benheim
-                        <a href="mailto:#"><i class="far fa-envelope"></i></a>
-                        <a href="#" target="_blank"><i class="fas fa-link"></i></a></br>
-                        Scientist TotalEnergie, One Tech, La Défense Paris
-                    </div>
-                    <div class="col-sm-4 mb-4">
-                        Emmanuel Le-Borg <br>
-                    </div>
-                    <div class="col-sm-4 mb-4">
-                        Scientist TotalEnergie, One Tech, La Défense Paris
-                    </div>
-                </div>
-                <!-- End author list-->
-
-                <div class="row text-center">
-                    <div class="col-sm-4 mb-4">
-                        <h4>
-                            <a href="https://arxiv.org/abs/2305.14229" target="_blank">
-                                <i class="fas fa-file-alt"></i>
-                                Paper
-                            </a>
-                        </h4>
-                    </div>
-                    <div class="col-sm-4 mb-4">
-                        <h4>
-                            <a href="https://github.com/brendel-group/objects-identifiability" target="_blank">
-                                <i class="fab fa-github"></i>
-                                Code
-                            </a>
-                        </h4>
-                    </div>
-                    <div class="col-sm-4 mb-4">
-                        <h4>
-                            <a href="https://icml.cc/virtual/2023/oral/25431" target="_blank">
-                                <i class="fas fa-film"></i>
-                                Video Presentation
-                            </a>
-                        </h4>
-                    </div>
-                    
-                </div>
-
-                <div class="row text-center">
-                    <p>
-                        <b>tl;dr:</b>
-                        <span class="text-muted">
-                            We analyze when object-centric representations can be learned without supervision and introduces two assumptions, compositionality and irreducibility, to prove that ground-truth object representations can be identified.
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">DIoSC: Disentangling Time Series Representations via Contrastive based l-Variational Inference</h1>
+            <a> Published as a conference paper at ICLR 2024 </a>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a href="#" target="_blank">Khalid Oublal</a><sup>*</sup><sup>1</sup>,</span>
+                <span class="author-block">
+                  <a href="#" target="_blank">Saïd Ladjal</a><sup>1</sup>,</span>
+                  <span class="author-block">
+                    <a href="#" target="_blank">David Benheim</a><sup>2</sup>,</span>
+                  <span class="author-block">
+                    <a href="#" target="_blank">Emmanuel Le-Borg</a><sup>2</sup>,</span>
+                  <span class="author-block">
+                    <a href="#" target="_blank">François Roueff</a><sup>1</sup>
+                  </span>
+                  
+                  </div>
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block"><sup>1</sup>Institut Polytechnique de Paris, Telecom Paris<br></span><br>
+                    <span class="author-block"><sup>2</sup>Scientist TotalEnergie, One Tech, La Défense Paris<br></span>
+                    <span class="eql-cntrb"><small><br><sup>*</sup>Correspondence to: khalid[dot]oublal[at]polytechnique[dot]edu </small></span>
+                  </div>
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                         <!-- Arxiv PDF link -->
+                      <span class="link-block">
+                        <a href="#" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
                         </span>
-                    </p>
-                </div>
-
-                <div class="row mt-2">
-                    <h3>News</h3>
-                </div>
-
-                <div class="row">
-                    <table>
-                        <tr>
-                            <td>
-                                <span class="badge badge-pill badge-primary">May '23</span>
-                            </td>
-                            <td>
-                                Our paper was accepted for an Oral Presentation at <a href="https://icml.cc/" target="_blank">ICML 2023</a>!
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="badge badge-pill badge-primary">May '23</span>
-                            </td>
-                            <td>
-                                The pre-print is now available on <a href="https://arxiv.org/abs/2305.14229" target="_blank">arXiv</a>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <p>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="row mt-2">
-                    <h3>Abstract</h3>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12 collapse-container">
-                        <p class="collapse" id="abstractText" aria-expanded="false">
-                            Learning structured representations of the visual world in terms of objects promises to significantly improve the generalization abilities of current machine learning models. While recent efforts to this end 
-                            have shown promising empirical progress, a theoretical account of when unsupervised object-centric representation learning is possible is still lacking. Consequently, understanding the reasons for the success of existing object-centric methods as well as designing new theoretically grounded methods remains challenging. In the present work, we analyze when object-centric representations can provably be learned without supervision. To this end, we first introduce two assumptions on the generative process for scenes comprised of several objects, which we call compositionality and irreducibility. Under this generative process, we prove that the ground-truth object representations can be 
-                            identified by an invertible and compositional inference model, even in the presence of dependences between objects. We empirically validate our results
-                            through experiments on synthetic data. Finally, we provide evidence that our theory holds predictive power for existing object-centric models by showing a close correspondence between models' compositionality and invertibility and their identifiability empirically.
-                        </p>
-                       <a role="button" id="moreless" class="collapsed" data-toggle="collapse" href="#abstractText" aria-expanded="false" aria-controls="abstractText"></a>
-                    </div>
-                </div>
-
-                <div class="row mt-2">
-                    <h3>When can unsupervised object-centric representations provably be learned?</h3>
-                </div>
-                <div class="row mt-2 row-dense">
-                    <div class="col-12">
-                        <p>
-                            
-                        </p>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12">
-                        <div style="text-align: center;">
-                            <img src="img/intro.svg" style="max-width: 700px;" />
-                        </div>
-                        <small class="text-muted">
-                            Overview of our theoretical framework. We introduce two assumptions on the generative process for scenes comprised of several objects, which we call compositionality and
-                            irreducibility, and investigate how they relate to identifiability.
-                        </small>
-                    </div>
-                </div>
-                <div class="row mt-2 row-dense">
-                    <div class="col-12">
-                        <p>
-                            We assume that observed scenes comprising
-                            multiple objects are rendered by an unknown generator f from multiple ground-truth latent slots. We assume that this
-                            generative model has two key properties, which we call <b>compositionality</b> and <b>irreducibility</b>. Under this model, we
-                            prove that an invertible inference model with a compositional inverse yields latent slots that identify the ground-truth slots
-                            up to permutation and slot-wise invertible functions. We call this <b>slot identifiability</b>. To measure violations of compositionality in practice,
-                            we introduce a contrast function (<b>compositional contrast</b>) which is zero if and only if a function is compositional, while to measure invertibility, we rely
-                            on the reconstruction loss in an auto-encoder framework.    
-                        </p>
-                    </div>
-                </div>
-
-                <div class="row mt-2">
-                    <h3>How do we formalize object-centric data in our theoretical framework?</h3>
-                </div>
-                <div class="row mt-2 row-dense">
-                    <div class="col-12">
-                        <p>
-                            We define a generative model for multi-object scenes where objects are described by latent slots. We would like to enforce that each latent slot is
-                            responsible for encoding a distinct object in a scene. To this end, we make two core assumptions on the generator function from latent slots to images.
-                        </p>
-
-                        <p>
-                            The first assumption we make, <b>compositionality</b>, captures that each object is generated by one latent slot. We formalize this through an assumption
-                            on the Jacobian matrix of the generator function, which states that each pixel has a non-zero partial derivative with at most one latent slot.
-                            This imposes a local sparsity structure on the Jacobian visualized below (Section 2.1)
-                        </p>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div style="text-align: center;">
-                        <img src="img/compositionality.svg" style="max-width: 700px;" />
-                    </div>
-                    <small class="text-muted">
-                        Difference between a compositional and a non-compositional generator. (<b>A</b>) For a compositional generator <b>f</b>, every pixel is
-                        affected by at most one latent slot. As a result, there always exists an ordering of the pixels such that the generator’s Jacobian <b>Jf</b> consists
-                        of disjoint blocks, one for each latent slot (bottom). Note that both the pixel ordering and the specific structure of the Jacobian are not
-                        fixed across scenes and might depend on the latent input z. (<b>B</b>) For a non-compositional generator, there exists no pixel ordering that
-                        exposes such a structure in the Jacobian, since the same pixel can be affected by more than one latent slot
-                    </small>
-                </div>
-                <div class="row mt-2 row-dense">
-                    <div class="col-12">
-                        <p></p>
-                        <p>
-                            The second assumption we make, <b>irreducibility</b>, captures that each latent slot generates at most one object rather than multiple objects.
-                            To enforce this, we assume that the mechanisms which generate parts of the same object are dependent. We formalize a mechanism through the
-                            Jacobian matrix of the generator and dependence in a non-statistical sense using the rank of these mechanisms (Section 2.2).
-                        </p>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div style="text-align: center;">
-                        <img src="img/mechanisms.svg" style="max-width: 700px;" />
-                    </div>
-                    <small class="text-muted">
-                        (<b>A</b>) A simple example of a reducible mechanism is one for which disjoint subsets of latents from
-                        the same slot render pixel groups S1 and S2 separately such that they form independent sub-mechanisms. This
-                        independence between sub-mechanisms is indicated by the difference in colors. (<b>B</b>) Not all reducible mechanisms look as simple as panel
-                        A: here, S1 and S2 depend on every latent component in the slot, but the information in S1 ∪ S2 still decomposes across S1 and S2 as
-                        sub-mechanisms 1 and 2 are independent. (<b>C</b>) In contrast, for an irreducible mechanism, the information does not decompose across any
-                        pixel partition S, S′, and so it is impossible to separate it into independent sub-mechanisms.
-                    </small>
-                </div>
-
-                <div class="row mt-2">
-                    <h3>When can object-centric representations be learned in our framework?</h3>
-                </div>
-                <div class="row mt-2 row-dense">
-                    <div class="col-12">
-                        <p>
-                            Under this generative model, we can then prove our <b>main theoretical result</b>: Inference models which are invertible (i.e. minimize reconstruction loss)
-                            and have a compositional inverse (i.e. decoder maps different slots to different pixels) will identify the ground-truth latent slots (slot identifiability) (Theorem 1)
-                        </p>
-                        <p>
-                            We validate empirically on controlled synthetic data that inference models which maximize invertibility and compositionality indeed identify
-                            the ground-truth latent slots (Section 5.1)
-                        </p>
-                        <p>
-                            Finally, we provide evidence that our theory holds predictive power for existing object-centric models by showing a close correspondence between
-                            models’ compositionality and invertibility, and slot-identifiability (Section 5.2)
-                        </p>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div style="text-align: center;">
-                        <img src="img/results.svg" style="max-width: 700px;" />
-                    </div>
-                    <small class="text-muted">
-                        We train object-centric models on controlled synthetic data (<b>A</b>) and on synthetic images (<b>B</b>).
-                        We then evaluate the models' compositionality and invertibility measured by our proposed compositional contrast and the reconstruction error.
-                        We see that these properties are predictive of the models' identifiability.
-                    </small>
-                </div>
-
-
-                <div class="row">
-                    <h3>Acknowledgements & Funding</h3>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-12 collapse-container">
-                        <p class="collapse" id="acknowledgmentsText" aria-expanded="false">
-                            We thank: the anonymous reviewers for helpful suggestions which lead to improvements in the manuscript, Andrea Dittadi for helpful discussions regarding experiments, Attila Juhos, Amin Charusaie, Michel Besserve, and Simon Buchholz for helpful technical discussions, and Zac Cranko for theoretical efforts in the early stages of the project.
-                            The authors thank the <a href="https://imprs.is.mpg.de/" target="_blank">International Max Planck Research School for Intelligent Systems (IMPRS-IS)</a> for supporting JB, RSZ and YS.
-                            This work was supported by the German Federal Ministry of Education and Research (BMBF): Tübingen AI Center, FKZ: 01IS18039A, 01IS18039B. WB acknowledges financial support via an Emmy Noether Grant funded by the German Research Foundation (DFG) under grant no. BR 6382/1-1 and via the Open Philantropy Foundation funded by the Good Ventures Foundation. WB is a member of the Machine Learning Cluster of Excellence, EXC number 2064/1 – Project number 390727645.
-                        </p>
-                       <a role="button" id="moreless" class="collapsed" data-toggle="collapse" href="#acknowledgmentsText" aria-expanded="false" aria-controls="acknowledgmentsText"></a>
-                    </div>
-                </div>
-                <div class="row">
-                    <h3>BibTeX</h3>
-                </div>
-                <div class="row">
-                    <p>If you find our work helpful, please cite our paper:</p>
-                </div>
-                <div class="row justify-content-md-center">
-                    <div class="col-sm-8 rounded p-3 m-2" style="background-color:lightgray;">
-                        <small class="code">
-                            @inproceedings{brady2023provably,<br>
-                            &nbsp;&nbsp;author = { <br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;Brady, Jack and<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;Zimmermann, Roland S. and<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;Sharma, Yash and<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;Sch{\"o}lkopf, Bernhard and<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;von K{\"u}gelgen, Julius<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;Brendel, Wieland and<br>
-                            &nbsp;&nbsp;},<br>
-                            &nbsp;&nbsp;title = {<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;Provably Learning<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;Object-Centric Representations<br>
-                            &nbsp;&nbsp;},<br>
-                            &nbsp;&nbsp;year = {2023},<br>
-                            &nbsp;&nbsp;booktitle = {<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;Proceedings of the 40th International<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;Conference on Machine Learning<br>
-                            &nbsp;&nbsp;},<br>
-                            &nbsp;&nbsp;articleno = {126},<br>
-                            &nbsp;&nbsp;numpages = {25},<br>
-                            &nbsp;&nbsp;location = {Honolulu, Hawaii, USA},<br>
-                            &nbsp;&nbsp;series = {ICML'23}<br>
-                            }
-                        </small>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <small class="text-muted">Webpage designed using Bootstrap 4.5.</small>
-                    <a href="#" class="ml-auto"><i class="fas fa-sort-up"></i></a>
-                </div>
-
+                        <span>Paper</span>
+                      </a>
+                    </span>
+                    <!-- Supplementary PDF link -->
+                    <span class="link-block">
+                      <a href="#" target="_blank"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </span>
+                      <span>Supplementary</span>
+                    </a>
+                  </span>
+                  <!-- Github link -->
+                  <span class="link-block">
+                    <a href="https://github.com/oublalkhalid/DIoSC" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+                <!-- ArXiv abstract Link -->
+                <span class="link-block">
+                  <a href="#" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
             </div>
+          </div>
         </div>
-
+      </div>
     </div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
-
-    <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-    </script>
-
-</body>
-
-</html>
-
-</html>
+  </div>
+</section>
+<!-- End image carousel -->
+<!-- Teaser video
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video poster="" id="tree" autoplay controls muted loop height="100%">
+        Your video here 
+        <source src="static/images/model.png"
+        type="images/png">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
+      </h2>
+    </div>
+  </div>
+</section>
+ End teaser video -->
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+          Learning disentangled representations is crucial for Time Series, offering benefits like feature derivation and improved interpretability, thereby enhancing task
+          performance. We focus on disentangled representation learning for home appliance electricity usage, enabling users to understand and optimize their consumption for a reduced carbon footprint. Our approach frames the problem as disentangling each attribute’s role in total consumption (e.g., dishwashers, fridges,
+          etc). Unlike existing methods assuming attribute independence, we acknowledge
+          real-world time series attribute correlations, like the operating of dishwashers and
+          washing machines during the winter season. To tackle this, we employ weakly
+          supervised contrastive disentanglement, facilitating representation generalization
+          across diverse correlated scenarios and new households. Our method utilizes innovative l-variational inference layers with self-attention, effectively addressing
+          temporal dependencies across bottom-up and top-down networks. We find that
+          DIoSC (Disentanglement and Independence-of-Support via Contrastive Learning) can enhance the task of reconstructing electricity consumption for individual
+          appliances. We introduce TDS (Time Disentangling Score) to gauge disentanglement quality. TDS reliably reflects disentanglement performance, making it
+          a valuable metric for evaluating time series representations.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+<!-- Image carousel -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+       <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/model.png" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+          Causal Model.
+        </h2>
+      </div>
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/model.png" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+          Causal Model.
+        </h2>
+      </div>
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/model.png" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+          Causal Model.
+       </h2>
+     </div>
+  </div>
+</div>
+</div>
+</section>
+<!-- End image carousel -->
+<!-- Youtube video -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <!-- Paper video. -->
+      <h2 class="title is-3">Video Presentation (coming soon)</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          
+          <div class="publication-video">
+            <!-- Youtube embed code here 
+            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End youtube video -->
+<!-- Paper poster -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title">Poster (coming soon)</h2>
+      <!-- <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
+          </iframe> -->
+        
+      </div>
+    </div>
+  </section>
+<!--End paper poster -->
+<!-- BibTex citation -->
+  <!-- <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>BibTex Code Here</code></pre>
+    </div>
+</section> -->
+<!--End BibTex citation -->
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            <h> 📑 DIoSC paper, revised version Fri 29 Dec 2023.</h>  
+            <!-- This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">DIoSC Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>. -->
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+    <!-- End of Statcounter Code -->
+  </body>
+  </html>
