@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Primary Meta Tags -->
+    <title>Disentangling Time Series Representations via Contrastive Independence-of-Support on l-Variational Inference</title>
+    <meta name="title" content="Disentangling Time Series Representations via Contrastive Independence-of-Support on l-Variational Inference">
+    <meta name="description"
+        content="Learning disentangled representations for time series is a promising path to facilitate reliable generalization to in- and out-of distribution (OOD), offering benefits like feature derivation and improved interpretability and fairness, thereby enhancing downstream tasks. We focus on disentangled representation learning for home appliance electricity usage, enabling users to understand and optimize their consumption for a reduced carbon footprint. Our approach frames the problem as disentangling each attribute's role in total consumption. Unlike existing methods assuming attribute independence which leads to non-identiability, we acknowledge real-world time series attribute correlations, learned up to a smooth bijection using contrastive learning and a single autoencoder. To address this, we propose a Disentanglement under Independence-Of-Support via Contrastive Learning (DIOSC), facilitating representation generalization across diverse correlated scenarios. Our method utilizes innovative \textit{l}-variational inference layers with self-attention, effectively addressing temporal dependencies across bottom-up and top-down networks. We find that DIOSC can enhance the task of representation of time series electricity consumption. We introduce TDS (Time Disentangling Score) to gauge disentanglement quality. TDS reliably reflects disentanglement performance, making it a valuable metric for evaluating time series representations disentanglement."
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://brendel-group.github.io/cl-ica/">
+    <meta property="og:title" content="Contrastive Learning Inverts the Data Generating Process">
+    <meta property="og:description"
+        content="Contrastive learning has recently seen tremendous success in self-supervised learning. So far, however, it is largely unclear why the learned representations generalize so effectively to a large variety of downstream tasks. We here prove that feedforward models trained with objectives belonging to the commonly used InfoNCE family learn to implicitly invert the underlying generative model of the observed data. While the proofs make certain statistical assumptions about the generative model, we observe empirically that our findings hold even if these assumptions are severely violated. Our theory highlights a fundamental connection between contrastive learning, generative modeling, and nonlinear independent component analysis, thereby furthering our understanding of the learned representations as well as providing a theoretical foundation to derive more effective contrastive losses.">
+    <meta property="og:image" content="https://brendel-group.github.io/cl-ica/img/overview_compressed.svg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://brendel-group.github.io/cl-ica/">
+    <meta property="twitter:title" content="Contrastive Learning Inverts the Data Generating Process">
+    <meta property="twitter:description"
+        content="Contrastive learning has recently seen tremendous success in self-supervised learning. So far, however, it is largely unclear why the learned representations generalize so effectively to a large variety of downstream tasks. We here prove that feedforward models trained with objectives belonging to the commonly used InfoNCE family learn to implicitly invert the underlying generative model of the observed data. While the proofs make certain statistical assumptions about the generative model, we observe empirically that our findings hold even if these assumptions are severely violated. Our theory highlights a fundamental connection between contrastive learning, generative modeling, and nonlinear independent component analysis, thereby furthering our understanding of the learned representations as well as providing a theoretical foundation to derive more effective contrastive losses.">
+    <meta property="twitter:image" content="https://brendel-group.github.io/cl-ica/img/overview_compressed.svg">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+
+    <style>
+        .main {
+            font-family: 'IBM Plex Sans Condensed', sans-serif;
+        }
+
+        .code {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .row {
+            padding-bottom: 20px;
+        }
+
+        .a {
+            color: gainsboro;
+            font-family: 'IBM Plex Sans Condensed', sans-serif;
+        }
+
+        td {
+            padding: 0 15px;
+        }
+
+        p {
+            text-align: justify;
+
+        }
+    </style>
+
+    <title>Contrastive Learning Inverts the Data Generating Process</title>
+</head>
+
+<body>
+    <div style="display: none;">
+        \[
+
+        \renewcommand{\d}{{\bf{d}}}
+        \renewcommand{\b}{{\bf{b}}}
+        \newcommand{\J}{{\bf{J}}}
+        \newcommand{\A}{\bf{A}}
+        \newcommand{\B}{\bf{B}}
+        \newcommand{\RR}{\mathbf{R}}
+        \newcommand{\h}{{\bf{h}}}
+        \newcommand{\x}{{\bf{x}}}
+        \newcommand{\bfa}{{\bf{a}}}
+        \newcommand{\bfb}{{\bf{b}}}
+        \newcommand{\bfc}{{\bf{c}}}
+        \newcommand{\y}{{\bf{y}}}
+        \newcommand{\z}{{\bf{z}}}
+        \newcommand{\w}{{\bf{w}}}
+        \newcommand{\f}{{\bf{f}}}
+        \newcommand{\tf}{{\bf{\tilde f}}}
+        \newcommand{\tx}{{\bf{\tilde x}}}
+        \renewcommand{\d}{{\rm{d}}}
+        \newcommand{\s}{{\bf{s}}}
+        \newcommand{\g}{{\bf{g}}}
+        \newcommand{\W}{{\bf{W}}}
+        \newcommand{\vol}{{\operatorname{vol}}}
+        \newcommand{\zz}{\mathbf{z}}
+        \newcommand{\xx}{\mathbf{x}}
+        \newcommand{\bdelta}{\bm{\delta}}
+        \renewcommand{\H}{\mathbf{H}}
+        \newcommand{\txx}{{\tilde{\mathbf{x}}}}
+        \newcommand{\tzz}{{\tilde{\mathbf{z}}}}
+        \newcommand{\tyy}{{\tilde{\mathbf{y}}}}
+        \newcommand{\invf}{f^{-1}}
+        \newcommand{\Sp}{\mathbb{S}}
+        \]
+    </div>
+
+    <div class="container main">
+        <div class="row">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8" id="main-content">
+                <div class="row text-center my-5" id="#">
+                    <h1>Contrastive Learning Inverts the Data Generating Process</h1>
+                </div>
+
+                <!-- Begin author list-->
+                <div class="row text-center mb-4">
+                    <div class="col-sm-4  mb-4">
+                        Roland S. Zimmermann*
+                        <a href="mailto:roland.zimmermann@uni-tuebingen.de"><i class="far fa-envelope"></i></a>
+                        <a href="https://rzimmermann.com" target="_blank"><i class="fas fa-link"></i></a></br>
+                        University of Tübingen & <nobr>IMPRS-IS</nobr>
+                    </div>
+                    <div class="col-sm-4 mb-4">
+                        Yash Sharma*
+                        <a href="mailto:ysharma1126@gmail.com"><i class="far fa-envelope"></i></a>
+                        <a href="https://www.yash-sharma.com/" target="_blank"><i class="fas fa-link"></i></a></br>
+                        University of Tübingen & <nobr>IMPRS-IS</nobr>
+                    </div>
+                    <div class="col-sm-4 mb-4">
+                        Steffen Schneider*
+                        <a href="mailto:steffen@bethgelab.org"><i class="far fa-envelope"></i></a>
+                        <a href="https://stes.io" target="_blank"><i class="fas fa-link"></i></a></br>
+                        University of Tübingen & <nobr>IMPRS-IS</nobr> & EPFL
+                    </div>
+                    <div class="col-sm-2  mb-2">
+                    </div>
+                    <div class="col-sm-4  mb-4">
+                        Matthias Bethge
+                        <a href="http://bethgelab.org/people" target="_blank"><i class="fas fa-link"></i></a><br>
+                        University of Tübingen
+                    </div>
+                    <div class="col-sm-4  mb-4">
+                        Wieland Brendel<br>
+                        University of Tübingen
+                    </div>
+                </div>
+                <!-- End author list-->
+
+                <div class="row text-center">
+                    <div class="col-sm-4 mb-4">
+                        <h4>
+                            <a href="https://arxiv.org/abs/2102.08850" target="_blank">
+                                <i class="fas fa-file-alt"></i>
+                                Paper
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="col-sm-4 mb-4">
+                        <h4>
+                            <a href="https://zenodo.org/record/4502485" target="_blank">
+                                <i class="far fa-chart-bar"></i>
+                                Dataset
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="col-sm-4 mb-4">
+                        <h4>
+                            <a href="https://github.com/brendel-group/cl-ica" target="_blank"> <i
+                                    class="fab fa-github"></i>
+                                Code
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+
+                <div class="row text-center">
+                    <p>
+                        <b>tl;dr:</b>
+                        <span class="text-muted">
+                            We show that a popular contrastive learning method can invert the data generating process 
+                            and find the factors of variation underlying the data. Our findings may explain the 
+                            empirical success of contrastive learning and pave the way towards more effective 
+                            contrastive learning losses.
+                        </span>
+                    </p>
+                </div>
+
+                <div class="row mt-2">
+                    <h3>News</h3>
+                </div>
+
+                <div class="row">
+                    <table>
+                        <tr>
+                            <td class="mr-10">
+                                <span class="badge badge-pill badge-primary">May '21</span>
+                            </td>
+                            <td>
+                                The paper was accepted at ICML 2021!
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mr-10">
+                                <span class="badge badge-pill badge-primary">February '21</span>
+                            </td>
+                            <td>
+                                The pre-print is now available on arXiv: <a
+                                    href="https://arxiv.org/abs/2102.08850" target="_blank">arxiv.org/abs/2102.08850</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="badge badge-pill badge-primary">December '20</span>
+                            </td>
+                            <td>
+                                A shorter <a
+                                    href="https://sslneuips20.github.io/files/CameraReadys%203-77/67/CameraReady/Contrastive_Learning_can_Identify_the_Underlying_Generative_Factors_of_the_Data_SSL_NeurIPS_2020.pdf"><i
+                                        class="far fa-sticky-note"></i> workshop version</a> of the paper was accepted
+                                for poster presentation at the <a href="https://sslneuips20.github.io/"
+                                    target="_blank">NeurIPS 2020 Workshop on Self-Supervised Learning - Theory and
+                                    Practice</a>.
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="row mt-2">
+                    <h3>Abstract</h3>
+                </div>
+                <div class="row">
+                    <p>
+                        Contrastive learning has recently seen tremendous success in self-supervised learning. So far,
+                        however, it is largely unclear why the learned representations generalize so effectively to a
+                        large variety of downstream tasks. We here prove that feedforward models trained with objectives
+                        belonging to the commonly used InfoNCE family learn to implicitly invert the underlying
+                        generative model of the observed data. While the proofs make certain statistical assumptions
+                        about the generative model, we observe empirically that our findings hold even if these
+                        assumptions are severely violated.
+                        Our theory highlights a fundamental connection between contrastive learning, generative
+                        modeling, and nonlinear independent component analysis, thereby furthering our understanding of
+                        the learned representations as well as providing a theoretical foundation to derive more
+                        effective contrastive losses.
+                    </p>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <img src="img/overview_compressed.svg" style="width: 100%;" />
+                        <small class="text-muted">
+                            Overview: We analyze the setup of contrastive learning, in which a feature encoder \(f\) is
+                            trained with the InfoNCE objective (Gutmann & Hyvarinen, 2012; van den Oord et al., 2018;
+                            Chen et al., 2020) using positive samples (green) and negative samples (orange). We assume
+                            the observations are generated by an (unknown) injective generative model \(g\) that maps
+                            unobservable latent variables from a hypersphere to observations in another manifold. Under
+                            these assumptions, the feature encoder \(f\) implictly learns to invert the ground-truth
+                            generative process \(g\) up to linear transformations, i.e., \(f = \mathbf{A} g^{-1}\) with
+                            an orthogonal matrix \(\mathbf{A}\), if \(f\) minimizes the InfoNCE objective.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <h3>Contributions</h3>
+                </div>
+                <ol>
+                    <li>
+                        We establish a theoretical connection between the InfoNCE family of objectives, which is
+                        commonly used in self-supervised learning, and nonlinear ICA. We show that training with InfoNCE
+                        inverts the data generating process if certain statistical assumptions on the data generating
+                        process hold.
+                    </li>
+                    <li>
+                        We empirically verify our predictions when the assumed theoretical conditions are fulfilled. In
+                        addition, we show successful inversion of the data generating process even if theoretical
+                        assumptions are partially violated.
+                    </li>
+                    <li>
+                        We build on top of the CLEVR rendering pipeline (Johnson et al., 2017) to generate a more
+                        visually complex disentanglement benchmark, called <i>3DIdent</i>, that contains hallmarks of
+                        natural environments (shadows, different lighting conditions, a 3D object, etc.). We demonstrate
+                        that a contrastive loss derived from our theoretical framework can identify the ground-truth
+                        factors of such complex, high-resolution images.
+                    </li>
+                </ol>
+
+
+                <div class="row mt-2">
+                    <h3>Theory</h3>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-12">
+
+                        <p>
+                            We start with the well-known formulation of a contrastive loss (often called <i>InfoNCE</i>),
+                            \[
+                            L(f; \tau, M) :=
+                            \underset{\substack{
+                            (\x, \tx) \sim p_\mathsf{pos} \\
+                            \{\xx^-_i\}_{i=1}^M \overset{\text{i.i.d.}}{\sim} p_\mathsf{data}
+                            }}{\mathbb{E}} \left[\, {- \log \frac{e^{f(\xx)^{\mathsf{T}} f(\tx) / \tau
+                            }}{e^{f(\xx)^{\mathsf{T}}
+                            f(\tx) / \tau } + \sum\limits_{i=1}^M e^{f(\xx^-_i)^{\mathsf{T}} f(\tx) / \tau }}}\,\right].
+                            \nonumber
+                            \]</p>
+
+                        <p>
+                            Our theoretical approach consists of three steps:
+                        <ul>
+                            <li> We demonstrate that the contrastive loss \(L\) can be interpreted as the cross-entropy
+                                between
+                                the (conditional) ground-truth and an inferred latent distribution.
+                            </li>
+                            <li>Next, we show that encoders minimizing the contrastive loss maintain distance, i.e., two
+                                latent
+                                vectors with distance \(\alpha\) in the ground-truth generative model are mapped to
+                                points with
+                                the same distance \(\alpha\) in the inferred representation.</li>
+                            <li>Finally, we use distance preservation to show that minimizers of the contrastive loss
+                                \(L\)
+                                invert the generative process up to certain invertible linear transformations.</li>
+                        </ul>
+                        </p>
+                        <p>
+                            We follow this approach both for the contrastive loss \(L\) defined above, and use our
+                            theory as a starting point to design new contrastive losses (e.g., for latents within a
+                            hypercube). We validate predictions regarding identifiability of the latent variables (up to a
+                            transformation) with extensive experiments.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <h3>Dataset</h3>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+
+                        We introduce 3Dident, a dataset with hallmarks of natural environments (shadows, different
+                        lighting conditions, 3D rotations, etc.).
+                        We publicly released the full dataset (including both, the train and test set) <a href="https://zenodo.org/record/4502485">here</a>.
+                        Reference code for evaluation has been made available at <a href="https://github.com/brendel-group/cl-ica">our repository<a/>.
+
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <img src="img/3ddis.svg" style="width: 100%;" />
+                                <small class="text-muted">
+                                    3DIdent: Influence of the latent factors \(\z\) on the renderings \(\x\). Each
+                                    column corresponds to a traversal in one of the ten latent dimensions while the
+                                    other dimensions are kept fixed.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <h3>Acknowledgements & Funding</h3>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <p>
+                            We thank Ivan Ustyuzhaninov, David Klindt, Lukas Schott and Luisa Eck for helpful
+                            discussions.
+                            We thank Bozidar Antic, Shubham Krishna and Jugoslav Stojcheski for ideas on the design of
+                            3DIdent.
+                        </p>
+                        <p>
+                            We thank the <a href="https://imprs.is.mpg.de/" target="_blank">International Max Planck Research School for Intelligent Systems (IMPRS-IS)</a> for supporting RSZ, YS and StS.
+                            StS acknowledges his membership in the <a href="https://ellis.eu/en/projects/adaptation-and-robustness-in-brains-and-machines" target="_blank">European Laboratory for Learning and Intelligent
+                            Systems (ELLIS) PhD program</a>.
+                            We acknowledge support from the German Federal Ministry of Education and Research (BMBF)
+                            through the <a href="https://tuebingen.ai" target="_blank">Competence Center for Machine
+                            Learning (TUE.AI, FKZ 01IS18039A)</a> and the <a
+                            href="https://www.bccn-tuebingen.de/research/" target="_blank">Bernstein Computational
+                            Neuroscience Program Tübingen (FKZ: 01GQ1002)</a>. WB acknowledges support via his Emmy
+                            Noether Research Group funded by the German Science Foundation (DFG) under grant no. BR
+                            6382/1-1 as well as support by Open Philantropy and the Good Ventures Foundation.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <h3>BibTeX</h3>
+                </div>
+                <div class="row">
+                    <p>If you find our analysis helpful, please cite our paper:</p>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-sm-8 rounded p-3 m-2" style="background-color:lightgray;">
+                        <small class="code">
+                            @article{zimmermann2021cl,<br>
+                            &nbsp;&nbsp;author = {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;Zimmermann, Roland S. and<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;Sharma, Yash and<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;Schneider, Steffen and<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;Bethge, Matthias and<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;Brendel, Wieland<br>
+                            &nbsp;&nbsp;},<br>
+                            &nbsp;&nbsp;title = {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;Contrastive Learning Inverts<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;the Data Generating Process<br>
+                            &nbsp;&nbsp;},<br>
+                            &nbsp;&nbsp;booktitle = {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;Proceedings of the 38th International Conference<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;on Machine Learning, <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;{ICML} 2021, 18-24 July 2021, Virtual Event<br>
+                            &nbsp;&nbsp;},<br>
+                            &nbsp;&nbsp;series = {Proceedings of Machine Learning Research},<br>
+                            &nbsp;&nbsp;volume = {139},<br>
+                            &nbsp;&nbsp;pages = {12979--12990},<br>
+                            &nbsp;&nbsp;publisher = {{PMLR}},<br>
+                            &nbsp;&nbsp;year = {2021},<br>
+                            &nbsp;&nbsp;url = {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;http://proceedings.mlr.press/v139/zimmermann21a.html<br>
+                            &nbsp;&nbsp;},<br>
+                            }
+                        </small>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <small class="text-muted">Webpage designed using Bootstrap 4.5.</small>
+                    <a href="#" class="ml-auto"><i class="fas fa-sort-up"></i></a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
