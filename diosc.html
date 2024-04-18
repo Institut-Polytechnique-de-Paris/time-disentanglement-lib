@@ -14,7 +14,7 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://brendel-group.github.io/cl-ica/">
-    <meta property="og:title" content="Contrastive Learning Inverts the Data Generating Process">
+    <meta property="og:title" content="Disentangling Time Series Representations via Contrastive Independence-of-Support on l-Variational Inference">
     <meta property="og:description"
         content="Contrastive learning has recently seen tremendous success in self-supervised learning. So far, however, it is largely unclear why the learned representations generalize so effectively to a large variety of downstream tasks. We here prove that feedforward models trained with objectives belonging to the commonly used InfoNCE family learn to implicitly invert the underlying generative model of the observed data. While the proofs make certain statistical assumptions about the generative model, we observe empirically that our findings hold even if these assumptions are severely violated. Our theory highlights a fundamental connection between contrastive learning, generative modeling, and nonlinear independent component analysis, thereby furthering our understanding of the learned representations as well as providing a theoretical foundation to derive more effective contrastive losses.">
     <meta property="og:image" content="https://brendel-group.github.io/cl-ica/img/overview_compressed.svg">
@@ -22,7 +22,7 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://brendel-group.github.io/cl-ica/">
-    <meta property="twitter:title" content="Contrastive Learning Inverts the Data Generating Process">
+    <meta property="twitter:title" content="Disentangling Time Series Representations via Contrastive Independence-of-Support on l-Variational Inference">
     <meta property="twitter:description"
         content="Contrastive learning has recently seen tremendous success in self-supervised learning. So far, however, it is largely unclear why the learned representations generalize so effectively to a large variety of downstream tasks. We here prove that feedforward models trained with objectives belonging to the commonly used InfoNCE family learn to implicitly invert the underlying generative model of the observed data. While the proofs make certain statistical assumptions about the generative model, we observe empirically that our findings hold even if these assumptions are severely violated. Our theory highlights a fundamental connection between contrastive learning, generative modeling, and nonlinear independent component analysis, thereby furthering our understanding of the learned representations as well as providing a theoretical foundation to derive more effective contrastive losses.">
     <meta property="twitter:image" content="https://brendel-group.github.io/cl-ica/img/overview_compressed.svg">
@@ -68,7 +68,7 @@
         }
     </style>
 
-    <title>Contrastive Learning Inverts the Data Generating Process</title>
+    <title>Disentangling Time Series Representations via Contrastive Independence-of-Support on l-Variational Inference</title>
 </head>
 
 <body>
@@ -115,35 +115,41 @@
             </div>
             <div class="col-sm-8" id="main-content">
                 <div class="row text-center my-5" id="#">
-                    <h1>Contrastive Learning Inverts the Data Generating Process</h1>
+                    <h1>Disentangling Time Series Representations via Contrastive Independence-of-Support on l-Variational Inference</h1>
                 </div>
 
                 <!-- Begin author list-->
                 <div class="row text-center mb-4">
                     <div class="col-sm-4  mb-4">
-                        Roland S. Zimmermann*
-                        <a href="mailto:roland.zimmermann@uni-tuebingen.de"><i class="far fa-envelope"></i></a>
-                        <a href="https://rzimmermann.com" target="_blank"><i class="fas fa-link"></i></a></br>
-                        University of Tübingen & <nobr>IMPRS-IS</nobr>
+                        Khalid Oublal*
+                        <a href="mailto:oublalkhalid@gmail.com"><i class="far fa-envelope"></i></a>
+                        <a href="https://oublalkhalid.com" target="_blank"><i class="fas fa-link"></i></a></br> 
+                        Institute Polytechnique de Paris
+                    </div>
+                    <div class="col-sm-4  mb-4">
+                        Saïd Ladjal
+                        <a href="#"><i class="far fa-envelope"></i></a>
+                        <a href="#" target="_blank"><i class="fas fa-link"></i></a></br> 
+                        Institute Polytechnique de Paris, Telecom Paris LTCI/S2A
                     </div>
                     <div class="col-sm-4 mb-4">
-                        Yash Sharma*
-                        <a href="mailto:ysharma1126@gmail.com"><i class="far fa-envelope"></i></a>
-                        <a href="https://www.yash-sharma.com/" target="_blank"><i class="fas fa-link"></i></a></br>
-                        University of Tübingen & <nobr>IMPRS-IS</nobr>
+                        David Benheim
+                        <a href="#"><i class="far fa-envelope"></i></a>
+                        <a href="#" target="_blank"><i class="fas fa-link"></i></a></br>
+                        OneTech TotalEnergies & <nobr>DS-AI</nobr>
                     </div>
                     <div class="col-sm-4 mb-4">
-                        Steffen Schneider*
-                        <a href="mailto:steffen@bethgelab.org"><i class="far fa-envelope"></i></a>
-                        <a href="https://stes.io" target="_blank"><i class="fas fa-link"></i></a></br>
-                        University of Tübingen & <nobr>IMPRS-IS</nobr> & EPFL
+                        Emmanuel Le-Borg
+                        <a href="#"><i class="far fa-envelope"></i></a>
+                        <a href="#" target="_blank"><i class="fas fa-link"></i></a></br>
+                        OneTech TotalEnergies & <nobr>DS-AI</nobr>
                     </div>
                     <div class="col-sm-2  mb-2">
                     </div>
                     <div class="col-sm-4  mb-4">
-                        Matthias Bethge
-                        <a href="http://bethgelab.org/people" target="_blank"><i class="fas fa-link"></i></a><br>
-                        University of Tübingen
+                        François Roueff
+                        <a href="#" target="_blank"><i class="fas fa-link"></i></a><br>
+                        Institute Polytechnique de Paris, Telecom Paris LTCI/S2A
                     </div>
                     <div class="col-sm-4  mb-4">
                         Wieland Brendel<br>
@@ -155,7 +161,7 @@
                 <div class="row text-center">
                     <div class="col-sm-4 mb-4">
                         <h4>
-                            <a href="https://arxiv.org/abs/2102.08850" target="_blank">
+                            <a href="https://openreview.net/pdf?id=iI7hZSczxE" target="_blank">
                                 <i class="fas fa-file-alt"></i>
                                 Paper
                             </a>
@@ -163,7 +169,7 @@
                     </div>
                     <div class="col-sm-4 mb-4">
                         <h4>
-                            <a href="https://zenodo.org/record/4502485" target="_blank">
+                            <a href="https://openreview.net/pdf?id=iI7hZSczxE" target="_blank">
                                 <i class="far fa-chart-bar"></i>
                                 Dataset
                             </a>
@@ -171,7 +177,7 @@
                     </div>
                     <div class="col-sm-4 mb-4">
                         <h4>
-                            <a href="https://github.com/brendel-group/cl-ica" target="_blank"> <i
+                            <a href="https://github.com/Institut-Polytechnique-de-Paris/time-disentanglement-lib" target="_blank"> <i
                                     class="fab fa-github"></i>
                                 Code
                             </a>
