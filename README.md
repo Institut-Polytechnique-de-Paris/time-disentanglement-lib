@@ -1,9 +1,11 @@
 
 
 <h1 align="left">
+<!--
     <a href="https://oublalkhalid.github.io/time-disentanglement-lib/">
         <img src="docs/img/hugging_time_disentanglement_lib.png" width="80" height="80" alt="Time Disentanglement-lib">
     </a>
+-->
     Time-Disentanglement-Lib
 </h1>
 
