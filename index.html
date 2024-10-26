@@ -388,11 +388,56 @@
                         </small>
                     </div>
                 </div>
+                <div class="row">
+    <h3>BibTeX</h3>
+</div>
+<div class="row">
+    <p>If you find our analysis helpful, please cite our paper:</p>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col-sm-8 rounded p-3 m-2" style="background-color:lightgray; position:relative;">
+        <pre id="bibtexContent" class="code">
+@inproceedings{oublal2024disentangling,
+  author = {
+    Oublal, Khalid and
+    Ladjal, Said and
+    Benhaiem, David and
+    LE BORGNE, Emmanuel and
+    Roueff, François
+  },
+  title = {
+    Disentangling Time Series Representations via Contrastive Independence-of-Support on l-Variational Inference
+  },
+  booktitle = {
+    The Twelfth International Conference on Learning Representations
+  },
+  year = {2024},
+  url = {
+    https://openreview.net/forum?id=iI7hZSczxE
+  }
+}
+        </pre>
+        <button onclick="copyBibtex()" style="position:absolute; top:10px; right:10px;">Copy</button>
+    </div>
+</div>
+
+<script>
+    function copyBibtex() {
+        const bibtexContent = document.getElementById('bibtexContent').innerText;
+        navigator.clipboard.writeText(bibtexContent).then(() => {
+            alert('BibTeX citation copied to clipboard!');
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
+    }
+</script>
+
 
                 <div class="row">
                     <small class="text-muted">Webpage designed using Bootstrap 4.5.</small>
                     <a href="#" class="ml-auto"><i class="fas fa-sort-up"></i></a>
                 </div>
+                            
 
             </div>
         </div>
