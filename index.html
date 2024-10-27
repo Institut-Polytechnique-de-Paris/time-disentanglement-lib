@@ -322,6 +322,47 @@
                     </div>
                 </div>
 
+                  <div class="container">
+    <h2>Datasets</h2>
+    <p>We conducted experiments on three public datasets:</p>
+    
+    <div class="dataset">
+      <p><span class="highlight">UK-DALE</span> (Kelly & Knottenbelt, 2015),</p>
+      <p><span class="highlight">REDD</span> (Kolter & Johnson, 2011),</p>
+      <p><span class="highlight">REFIT</span> (Murray et al., 2017)</p>
+      <p>These datasets provide power measurements from multiple homes.</p>
+    </div>
+
+    <p>We focus on six appliances:</p>
+    <ul class="appliance-list">
+      <li>Washing Machine</li>
+      <li>Oven</li>
+      <li>Dishwasher</li>
+      <li>Cloth Dryer</li>
+      <li>Fridge</li>
+    </ul>
+
+    <p>We performed cross-tests on different dataset scenarios, each with varying sample sizes:</p>
+
+    <div class="scenario">
+      <p><span class="highlight">Scenario A:</span> Training on <span class="highlight">REFIT</span> and testing on <span class="highlight">UK-DALE</span></p>
+      <p>Sample Size: 18.3k | Time Window (T) = 256 | Frequency = 60Hz</p>
+      <p>Test Set: 3.5k samples</p>
+    </div>
+
+    <div class="scenario">
+      <p><span class="highlight">Scenario B:</span> Training on <span class="highlight">UK-DALE</span> and testing on <span class="highlight">REFIT</span></p>
+      <p>Sample Size: 13.3k</p>
+    </div>
+
+    <div class="scenario">
+      <p><span class="highlight">Scenario C:</span> Training on <span class="highlight">REFIT</span> and testing on <span class="highlight">REDD</span></p>
+      <p>Sample Size: 9.3k</p>
+    </div>
+
+    <p>The augmentation pipeline is applied for all scenarios. For training and testing under correlation, we use the corresponding sampling.</p>
+  </div>
+
                 <div class="row mt-2">
                     <h3>Dataset</h3>
                 </div>
