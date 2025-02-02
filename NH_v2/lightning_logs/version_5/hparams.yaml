@@ -1,0 +1,28 @@
+H: 2
+L: 162
+P: 5
+batch_shuffle: false
+batch_size: 32
+checkpoint: null
+checkpoint_ckpt: null
+data_opt: Synthetic_Variability
+max_epochs: 50
+min_delta: 1.0e-06
+monitor_loss: val_loss
+num_workers: 18
+optimizer_config: !!python/object/new:easydict.EasyDict
+  dictitems:
+    betas: &id001
+    - 0.9
+    - 0.999
+    lr: 0.001
+    type: Adam
+    weight_decay: 0.01
+  state:
+    betas: *id001
+    lr: 0.001
+    type: Adam
+    weight_decay: 0.01
+patience: 10000
+save_path: /tsi/data_education/Ladjal/koublal/open-source/IDNet/results/
+validation_flag: true

@@ -1,0 +1,203 @@
+---
+---
+
+@article{zhang2023onenet,
+  abbr={NeurIPS},
+  title={OneNet: Enhancing Time Series Forecasting Models under Concept Drift by Online Ensembling},
+  author={Zhang, Yi-Fan and Wen, Qingsong and Wang, Xue and Chen, Weiqi and Sun, Liang and Zhang, Zhang and Wang, Liang and Jin, Rong and Tan, Tieniu},
+  journal={arXiv preprint arXiv:2309.12659},
+  year={2023},
+  bibtex_show={true},
+  selected={true},
+  preview={OneNet.png},
+  doi={https://doi.org/10.48550/arXiv.2309.1265},
+  url={https://arxiv.org/pdf/2309.12659.pdf},
+  code={https://github.com/yfzhang114/OneNet},
+  pdf={https://arxiv.org/pdf/2309.12659.pdf},
+  altmetric={248277},
+  dimensions={true},
+  abstract={Online updating of time series forecasting models aims to address the concept drifting problem by efficiently updating forecasting models based on streaming data. Many algorithms are designed for online time series forecasting, with some exploiting cross-variable dependency while others assume independence among variables. Given every data assumption has its own pros and cons in online time series modeling, we propose \textbf{On}line \textbf{e}nsembling \textbf{Net}work (OneNet). It dynamically updates and combines two models, with one focusing on modeling the dependency across the time dimension and the other on cross-variate dependency. Our method incorporates a reinforcement learning-based approach into the traditional online convex programming framework, allowing for the linear combination of the two models with dynamically adjusted weights. OneNet addresses the main shortcoming of classical online learning methods that tend to be slow in adapting to the concept drift. Empirical results show that OneNet reduces online forecasting error by more than 50% compared to the State-Of-The-Art (SOTA) method.}
+}
+
+
+
+@inproceedings{liu2023adaptive,
+  title={Adaptive Normalization for Non-stationary Time Series Forecasting: A Temporal Slice Perspective},
+  author={Liu, Zhiding and Cheng, Mingyue and Li, Zhi and Huang, Zhenya and Liu, Qi and Xie, Yanhu and Chen, Enhong},
+  booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
+  year={2023},
+  selected={true},
+  preview={AdaptiveTime.png},
+  doi={https://doi.org/10.48550/arXiv.2309.1265},
+  url={https://arxiv.org/pdf/2309.12659.pdf},
+  code={https://github.com/icantnamemyself/SAN},
+  pdf={https://openreview.net/forum?id=5BqDSw8r5j},
+  slide={https://neurips.cc/media/neurips-2023/Slides/72816.pdf},
+  altmetric={248277},
+  dimensions={true},
+  abstract={Deep learning models have progressively advanced time series forecasting due to their powerful capacity in capturing sequence dependence. Nevertheless, it is still challenging to make accurate predictions due to the existence of non-stationarity in real-world data, denoting the data distribution rapidly changes over time. To mitigate such a dilemma, several efforts have been conducted by reducing the non-stationarity with normalization operation. However, these methods typically overlook the distribution discrepancy between the input series and the horizon series, and assume that all time points within the same instance share the same statistical properties, which is too ideal and may lead to suboptimal relative improvements. To this end, we propose a novel slice-level adaptive normalization, referred to \textbf{SAN}, which is a novel scheme for empowering time series forecasting with more flexible normalization and denormalization. SAN includes two crucial designs. First, SAN tries to eliminate the non-stationarity of time series in units of a local temporal slice (i.e., sub-series) rather than a global instance. Second, SAN employs a slight network module to independently model the evolving trends of statistical properties of raw time series. Consequently, SAN could serve as a general model-agnostic plugin and better alleviate the impact of the non-stationary nature of time series data. We instantiate the proposed SAN on four widely used forecasting models and test their prediction results on benchmark datasets to evaluate its effectiveness. Also, we report some insightful findings to deeply analyze and understand our proposed SAN. We make our codes publicly available.}
+  }
+
+
+@misc{cherepanova2023performancedriven,
+      abbr={NeurIPS},
+      selected={true},
+      title={A Performance-Driven Benchmark for Feature Selection in Tabular Deep Learning}, 
+      author={Valeriia Cherepanova and Roman Levin and Gowthami Somepalli and Jonas Geiping and C. Bayan Bruss and Andrew Gordon Wilson and Tom Goldstein and Micah Goldblum},
+      year={2023},
+      eprint={2311.05877},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      code={https://github.com/vcherepanova/tabular-feature-selection},
+      pdf={https://openreview.net/forum?id=5BqDSw8r5j},
+      slide={https://neurips.cc/media/neurips-2023/Slides/72816.pdf},
+      altmetric={248277},
+      dimensions={true},
+      abstract={Academic tabular benchmarks often contain small sets of curated features. In contrast, 
+      data scientists typically collect as many features as possible into their datasets, and even engineer new 
+      features from existing ones. To prevent overfitting in subsequent downstream modeling, practitioners 
+      commonly use automated feature selection methods that identify a reduced subset of informative features. 
+      Existing benchmarks for tabular feature selection consider classical downstream models, toy synthetic datasets, 
+      or do not evaluate feature selectors on the basis of downstream performance. Motivated by the increasing popularity 
+      of tabular deep learning, we construct a challenging feature selection benchmark evaluated on downstream neural 
+      networks including transformers, using real datasets and multiple methods for generating extraneous features. We also propose an input-gradient-based 
+      analogue of Lasso for neural networks that outperforms classical feature selection methods on challenging problems such as selecting from corrupted or second-order features.}
+}
+
+
+@article{ludke2023add,
+  abbr={NeurIPS},
+  selected={true},
+  title={Add and thin: Diffusion for temporal point processes},
+  author={L{\"u}dke, David and Bilo{\v{s}}, Marin and Shchur, Oleksandr and Lienen, Marten and G{\"u}nnemann, Stephan},
+  journal={arXiv preprint arXiv:2311.01139},
+  year={2023},
+  code={https://www.cs.cit.tum.de/daml/add-thin/},
+  pdf={https://openreview.net/forum?id=5BqDSw8r5j},
+  slide={https://nips.cc/media/PosterPDFs/NeurIPS%202023/70186.png?t=1702590809.0856118},
+  altmetric={248277},
+  dimensions={true},
+  abstract={Autoregressive neural networks within the temporal point process (TPP) framework have become the standard for modeling continuous-time event data. Even though these models can expressively capture event sequences in a one-step-ahead fashion, they are inherently limited for long-term forecasting applications due to the accumulation of errors caused by their sequential nature. To overcome these limitations, we derive ADD-THIN, a principled probabilistic denoising diffusion model for TPPs that operates on entire event sequences. Unlike existing diffusion approaches, ADD-THIN naturally handles data with discrete and continuous components. In experiments on synthetic and real-world datasets, our model matches the state-of-the-art TPP models in density estimation and strongly outperforms them in forecasting.}
+}
+
+@inproceedings{qian2023synthcity,
+  title={Synthcity: a benchmark framework for diverse use cases of tabular synthetic data},
+  author={Zhaozhi Qian and Rob Davis and Mihaela van der Schaar},
+  booktitle={Thirty-seventh Conference on Neural Information Processing Systems Datasets and Benchmarks Track},
+  year={2023},
+  code={https://github.com/vanderschaarlab/synthcity-benchmarking},
+  pdf={https://openreview.net/pdf?id=uIppiU2JKP},
+  slide={https://nips.cc/media/PosterPDFs/NeurIPS%202023/73437.png?t=1697707836.7595446},
+  dimensions={true},
+  abstract={Multivariate time series (MTS) forecasting has shown great importance in numerous industries. Current state-of-the-art graph neural network (GNN)-based forecasting methods usually require both graph networks (e.g., GCN) and temporal networks (e.g., LSTM) to capture inter-series (spatial) dynamics and intra-series (temporal) dependencies, respectively. However, the uncertain compatibility of the two networks puts an extra burden on handcrafted model designs. Moreover, the separate spatial and temporal modeling naturally violates the unified spatiotemporal inter-dependencies in real world, which largely hinders the forecasting performance. To overcome these problems, we explore an interesting direction of directly applying graph networks and rethink MTS forecasting from a pure graph perspective. We first define a novel data structure, hypervariate graph, which regards each series value (regardless of variates or timestamps) as a graph node, and represents sliding windows as space-time fully-connected graphs. This perspective considers spatiotemporal dynamics unitedly and reformulates classic MTS forecasting into the predictions on hypervariate graphs. Then, we propose a novel architecture Fourier Graph Neural Network (FourierGNN) by stacking our proposed Fourier Graph Operator (FGO) to perform matrix multiplications in Fourier space. FourierGNN accommodates adequate expressiveness and achieves much lower complexity, which can effectively and efficiently accomplish {the forecasting}. Besides, our theoretical analysis reveals FGO's equivalence to graph convolutions in the time domain, which further verifies the validity of FourierGNN. Extensive experiments on seven datasets have demonstrated our superior performance with higher efficiency and fewer parameters compared with state-of-the-art methods. Code is available at this repository: https://github.com/aikunyi/FourierGNN.},
+  selected={true},
+  abbr={NeurIPS},
+}
+
+% 
+
+%
+% Adaptive Test-Time Personalization for Federated Learning
+
+% ContiFormer: Continuous-Time Transformer for Irregular Time Series Modeling
+
+% Continuous-Time Functional Diffusion Processes
+% Contrastive Modules with Temporal Attention for Multi-Task Reinforcement Learning
+% Differentiable sorting for censored time-to-event data
+
+%Intensity Profile Projection: A Framework for Continuous-Time Representation Learning for Dynamic Networks
+
+%MEMTO: Memory-guided Transformer for Multivariate Time Series Anomaly Detection
+
+%Newton–Cotes Graph Neural Networks: On the Time Evolution of Dynamic Systems
+%SoTTA: Robust Test-Time Adaptation on Noisy Data Streams
+
+%A Multi-modal Global Instance Tracking Benchmark (MGIT): Better Locating Target in Complex Spatio-temporal and Causal Relationship
+%AirDelhi: Fine-Grained Spatio-Temporal Particulate Matter Dataset From Delhi For ML based Modeling
+
+%Equivariant Neural Simulators for Stochastic Spatiotemporal Dynamics
+% Sequential Memory with Temporal Predictive Coding
+
+%SituatedGen: Incorporating Geographical and Temporal Contexts into Generative Commonsense Reasoning
+
+%TFLEX: Temporal Feature-Logic Embedding Framework for Complex Reasoning over Temporal Knowledge Graph
+
+%Taming Local Effects in Graph-based Spatiotemporal Forecasting
+
+%TempME: Towards the Explainability of Temporal Graph Neural Networks via Motif Discovery
+
+%Temporal Graph Benchmark for Machine Learning on Temporal Graphs
+%Temporal Dynamic Quantization for Diffusion Models
+
+%UUKG: Unified Urban Knowledge Graph Dataset for Urban Spatiotemporal Prediction
+
+% SustainGym: Reinforcement Learning Environments for Sustainable Energy Systems
+
+% Adaptive Normalization for Non-stationary Time Series Forecasting: A Temporal Slice Perspective
+
+% Calibrate and Boost Logical Expressiveness of GNN Over Multi-Relational and Temporal Graphs
+% Recurrent Temporal Revision Graph Networks
+% Adaptive Normalization for Non-stationary Time Series Forecasting: A Temporal Slice Perspective
+
+% Koopa: Learning Non-stationary Time Series Dynamics with Koopman Predictors
+
+%Scale-teaching: Robust Multi-scale Training for Time Series Classification with Noisy Labels
+%Sparse Deep Learning for Time Series Data: Theory and Applications
+% Conformal Prediction for Time Series with Modern Hopfield Networks
+% Prompt-augmented Temporal Point Process for Streaming Event Sequence
+% Provably Robust Temporal Difference Learning for Heavy-Tailed Rewards
+% The Impact of Positional Encoding on Length Generalization in Transformers
+% Bandit Task Assignment with Unknown Processing Time
+
+%Why Did This Model Forecast This Future? Information-Theoretic Saliency for Counterfactual Explanations of Probabilistic Regression Models
+
+
+
+% [Spotlight] Sample Complexity of Forecast Aggregation
+
+@inproceedings{
+balkanski2023energyefficient,
+title={Energy-Efficient Scheduling with Predictions},
+author={Eric Balkanski and Noemie Perivier and Clifford Stein and Hao-Ting Wei},
+booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
+year={2023},
+url={https://openreview.net/forum?id=7ntySBR3Ey},
+code={https://github.com/aikunyi/FourierGNN},
+      pdf={https://arxiv.org/pdf/2311.06190.pdf},
+      slide={https://neurips.cc/media/PosterPDFs/NeurIPS%202023/71159.png?t=1701931905.6668057},
+      dimensions={true},
+      abstract={Multivariate time series (MTS) forecasting has shown great importance in numerous industries. Current state-of-the-art graph neural network (GNN)-based forecasting methods usually require both graph networks (e.g., GCN) and temporal networks (e.g., LSTM) to capture inter-series (spatial) dynamics and intra-series (temporal) dependencies, respectively. However, the uncertain compatibility of the two networks puts an extra burden on handcrafted model designs. Moreover, the separate spatial and temporal modeling naturally violates the unified spatiotemporal inter-dependencies in real world, which largely hinders the forecasting performance. To overcome these problems, we explore an interesting direction of directly applying graph networks and rethink MTS forecasting from a pure graph perspective. We first define a novel data structure, hypervariate graph, which regards each series value (regardless of variates or timestamps) as a graph node, and represents sliding windows as space-time fully-connected graphs. This perspective considers spatiotemporal dynamics unitedly and reformulates classic MTS forecasting into the predictions on hypervariate graphs. Then, we propose a novel architecture Fourier Graph Neural Network (FourierGNN) by stacking our proposed Fourier Graph Operator (FGO) to perform matrix multiplications in Fourier space. FourierGNN accommodates adequate expressiveness and achieves much lower complexity, which can effectively and efficiently accomplish {the forecasting}. Besides, our theoretical analysis reveals FGO's equivalence to graph convolutions in the time domain, which further verifies the validity of FourierGNN. Extensive experiments on seven datasets have demonstrated our superior performance with higher efficiency and fewer parameters compared with state-of-the-art methods. Code is available at this repository: https://github.com/aikunyi/FourierGNN.},
+      selected={true},
+      abbr={NeurIPS},
+    }
+
+@misc{yi2023fouriergnn,
+      title={FourierGNN: Rethinking Multivariate Time Series Forecasting from a Pure Graph Perspective}, 
+      author={Kun Yi and Qi Zhang and Wei Fan and Hui He and Liang Hu and Pengyang Wang and Ning An and Longbing Cao and Zhendong Niu},
+      year={2023},
+      eprint={2311.06190},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      pdf={https://arxiv.org/pdf/2311.06190.pdf},
+      slide={https://nips.cc/media/PosterPDFs/NeurIPS%202023/72686.png?t=1701629705.5340078},
+      dimensions={true},
+      abstract={Multivariate time series (MTS) forecasting has shown great importance in numerous industries. Current state-of-the-art graph neural network (GNN)-based forecasting methods usually require both graph networks (e.g., GCN) and temporal networks (e.g., LSTM) to capture inter-series (spatial) dynamics and intra-series (temporal) dependencies, respectively. However, the uncertain compatibility of the two networks puts an extra burden on handcrafted model designs. Moreover, the separate spatial and temporal modeling naturally violates the unified spatiotemporal inter-dependencies in real world, which largely hinders the forecasting performance. To overcome these problems, we explore an interesting direction of directly applying graph networks and rethink MTS forecasting from a pure graph perspective. We first define a novel data structure, hypervariate graph, which regards each series value (regardless of variates or timestamps) as a graph node, and represents sliding windows as space-time fully-connected graphs. This perspective considers spatiotemporal dynamics unitedly and reformulates classic MTS forecasting into the predictions on hypervariate graphs. Then, we propose a novel architecture Fourier Graph Neural Network (FourierGNN) by stacking our proposed Fourier Graph Operator (FGO) to perform matrix multiplications in Fourier space. FourierGNN accommodates adequate expressiveness and achieves much lower complexity, which can effectively and efficiently accomplish {the forecasting}. Besides, our theoretical analysis reveals FGO's equivalence to graph convolutions in the time domain, which further verifies the validity of FourierGNN. Extensive experiments on seven datasets have demonstrated our superior performance with higher efficiency and fewer parameters compared with state-of-the-art methods. Code is available at this repository: https://github.com/aikunyi/FourierGNN.},
+      selected={true},
+      abbr={NeurIPS},
+    }
+% Stop In Session poster 4
+@inproceedings{jia2023witran,
+  title={{WITRAN}: Water-wave Information Transmission and Recurrent Acceleration Network for Long-range Time Series Forecasting},
+  author={Yuxin Jia and Youfang Lin and Xinyan Hao and Yan Lin and Shengnan Guo and Huaiyu Wan},
+  booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
+  year={2023},
+  url={https://openreview.net/forum?id=y08bkEtNBK},
+  code={https://github.com/Water2sea/WITRAN},
+  pdf={https://openreview.net/forum?id=y08bkEtNBK},
+  slide={https://nips.cc/media/PosterPDFs/NeurIPS%202023/69972.png?t=1701870561.3353913},
+  altmetric={248277},
+  dimensions={true},
+  abstract={An important goal of modern scheduling systems is to efficiently manage power usage. In energy-efficient scheduling, the operating system controls the speed at which a machine is processing jobs with the dual objective of minimizing energy consumption and optimizing the quality of service cost of the resulting schedule. Since machine-learned predictions about future requests can often be learned from historical data, a recent line of work on learning-augmented algorithms aims to achieve improved performance guarantees by leveraging predictions. In particular, for energy-efficient scheduling, Bamas et. al. [NeurIPS '20] and Antoniadis et. al. [SWAT '22] designed algorithms with predictions for the energy minimization with deadlines problem and achieved an improved competitive ratio when the prediction error is small while also maintaining worst-case bounds even when the prediction error is arbitrarily large.In this paper, we consider a general setting for energy-efficient scheduling and provide a flexible learning-augmented algorithmic framework that takes as input an offline and an online algorithm for the desired energy-efficient scheduling problem. We show that, when the prediction error is small, this framework gives improved competitive ratios for many different energy-efficient scheduling problems, including energy minimization with deadlines, while also maintaining a bounded competitive ratio regardless of the prediction error. Finally, we empirically demonstrate that this framework achieves an improved performance on real and synthetic datasets.},
+  selected={true},
+  abbr={NeurIPS},
+}
