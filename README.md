@@ -13,7 +13,7 @@ Time-Disentanglement-Lib
 </div>
 
 
-
+> **News 📣:** Our paper *"Disentangling Time Series Representations via Contrastive Independence-of-Support on $l$-Variational Inference"* has been published at **ICLR**.
 
 ## Overview
 
@@ -24,9 +24,7 @@ This library provides:
 1.  **SOTA Baselines:** Implementations of leading time-series and static disentanglement models.
 2.  **Evaluation Metrics:** A suite of quantitative metrics to measure disentanglement quality.
 3.  **Reproducibility:** Pre-configured experiments for datasets like UK-DALE, MNIST, dSprites, and more.
-
-> **News 📣:** Our paper *"Disentangling Time Series Representations via Contrastive Independence-of-Support on $l$-Variational Inference"* has been published at **ICLR**.
-
+4.  
 -----
 
 ## 🏗️ Supported Models
