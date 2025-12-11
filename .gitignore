@@ -1,0 +1,23 @@
+# Directories to ignore
+results/
+__pycache__/
+checkpoints/
+data/
+
+# Output files / logs
+*.out
+*.log
+
+# Python cache files
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+.env/
+.venv/
+venv/
+
+# Common system files
+.DS_Store
+Thumbs.db
