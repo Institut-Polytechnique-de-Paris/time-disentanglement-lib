@@ -13,10 +13,12 @@ Time-Disentanglement-Lib
 </div>
 
 
+##
 
 > **News 📣:** Our paper *"Disentangling Time Series Representations via Contrastive Independence-of-Support on $l$-Variational Inference"* has been published at **ICLR**.
 
 ## Overview
+
 
 **Time-Disentanglement-Lib** is a modular framework designed to facilitate research in disentangled representation learning for sequential data. Unlike standard static disentanglement libraries, this repository focuses on the temporal dynamics, offering state-of-the-art (SOTA) models, including our proposed **DIoSC** framework.
 
