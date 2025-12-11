@@ -4,13 +4,20 @@ import os
 import gc
 from sklearn.preprocessing import MinMaxScaler
 
+def free_gpu(G):
+    G.cpu()
+    del G
+    gc.collect()
+    torch.cuda.empty_cache()
+
+
 def sliding_windows(data, seq_length):
     x = []
     y = []
 
     for i in range(len(data)-seq_length-1):
         _x = data[i:(i+seq_length)]
-        _y = data[i+seq_length]    #the next has to be predicted
+        _y = data[i+seq_length]
         x.append(_x)
         y.append(_y)
 
@@ -82,10 +89,4 @@ def write_file(path, values):
         for value in values:
             file.write(str(value) + '\n')
 
-def free_gpu(G):
-    
-    G.cpu()
-    del G
-    gc.collect()
-    torch.cuda.empty_cache()
-    return
+
