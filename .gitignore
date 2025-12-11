@@ -1,7 +1,7 @@
 # Directories to ignore
 results/
 __pycache__/
-checkpoints/
+.checkpoints/
 data/
 
 # Output files / logs
